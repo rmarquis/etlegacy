@@ -1940,7 +1940,10 @@ void G_DisarmSatchel(gentity_t *traceEnt, gentity_t *ent)
 		// consistency with dynamite defusing
 		G_PrintClientSpammyCenterPrint(ent - g_entities, "Satchel charge disarmed");
 
-		G_AddSkillPoints(ent, SK_EXPLOSIVES_AND_CONSTRUCTION, 6.f, "disarming satchel");
+		if (traceEnt->s.teamNum != ent->client->sess.sessionTeam)
+		{
+			G_AddSkillPoints(ent, SK_EXPLOSIVES_AND_CONSTRUCTION, 6.f, "disarming satchel");
+		}
 	}
 }
 
