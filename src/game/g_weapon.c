@@ -2297,11 +2297,13 @@ void G_DisarmDynamite(gentity_t *traceEnt, gentity_t *ent)
 	traceEnt->think     = G_FreeEntity;
 	traceEnt->nextthink = level.time + FRAMETIME;
 
-	// don't report if not disarming *enemy* dynamite in field
+	// don't award XP or report objectives for friendly dynamite
 	if (traceEnt->s.teamNum == ent->client->sess.sessionTeam)
 	{
 		return;
 	}
+
+	G_AddSkillPoints(ent, SK_EXPLOSIVES_AND_CONSTRUCTION, 6.f, "defusing dynamite");
 
 	VectorCopy(traceEnt->r.currentOrigin, org);
 	SnapVector(org);
@@ -2344,7 +2346,6 @@ void G_DisarmDynamite(gentity_t *traceEnt, gentity_t *ent)
 		if (hit->spawnflags & (ent->client->sess.sessionTeam == TEAM_AXIS ? AXIS_OBJECTIVE : ALLIED_OBJECTIVE))
 		{
 			G_LogPrintf("Dynamite_Diffuse: %d %s\n", (int)(ent - g_entities), hit->parent ? hit->parent->track : hit->track);
-			G_AddSkillPoints(ent, SK_EXPLOSIVES_AND_CONSTRUCTION, 6.f, "defusing dynamite");
 		}
 
 		if (hit->target_ent)
@@ -2398,7 +2399,6 @@ void G_DisarmDynamite(gentity_t *traceEnt, gentity_t *ent)
 		if (hit->s.teamNum == ent->client->sess.sessionTeam)
 		{
 			G_LogPrintf("Dynamite_Diffuse: %d %s\n", (int)(ent - g_entities), hit->parent ? hit->parent->track : hit->track);
-			G_AddSkillPoints(ent, SK_EXPLOSIVES_AND_CONSTRUCTION, 6.f, "defusing dynamite");
 		}
 
 		G_Script_ScriptEvent(hit, "defused", ent->client->sess.sessionTeam == TEAM_AXIS ? "axis" : "allies");
