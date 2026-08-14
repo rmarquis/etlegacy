@@ -1060,6 +1060,7 @@ struct gclient_s
 	float hspct;
 	float accscore;
 	float hsscore;
+	float splashacc;                        ///< accuracy of non-headshotable weapons
 
 	int flametime;                          ///< flamethrower exploit fix
 

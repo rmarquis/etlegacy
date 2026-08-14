@@ -3781,6 +3781,7 @@ const char *awardNames[NUM_ENDGAME_AWARDS] =
 	"Best Covert Ops",
 	"Highest Accuracy",
 	"Highest Headshots Percentage",
+	"Highest Splash Accuracy",
 	"Best Survivor",
 	"Most Damage Given",
 	"Most Gibs",

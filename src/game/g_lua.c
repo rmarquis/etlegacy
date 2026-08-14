@@ -1236,6 +1236,7 @@ static const gentity_field_t gclient_fields[] =
 	_et_gclient_addfield(medals,                            FIELD_INT,                 FIELD_FLAG_READONLY),
 	_et_gclient_addfield(acc,                               FIELD_FLOAT,               FIELD_FLAG_READONLY),
 	_et_gclient_addfield(hspct,                             FIELD_FLOAT,               FIELD_FLAG_READONLY),
+	_et_gclient_addfield(splashacc,                         FIELD_FLOAT,               FIELD_FLAG_READONLY),
 	_et_gclient_addfield(freezed,                           FIELD_INT,                 0),
 	_et_gclient_addfield(constructSoundTime,                FIELD_INT,                 FIELD_FLAG_READONLY),
 

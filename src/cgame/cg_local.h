@@ -2365,9 +2365,9 @@ typedef struct
 } clientLocation_t;
 
 #if defined(FEATURE_RATING)
-#define NUM_ENDGAME_AWARDS     22   ///< total number of endgame awards
+#define NUM_ENDGAME_AWARDS     23   ///< total number of endgame awards
 #else
-#define NUM_ENDGAME_AWARDS     21   ///< total number of endgame awards
+#define NUM_ENDGAME_AWARDS     22   ///< total number of endgame awards
 #endif
 #define NUMSHOW_ENDGAME_AWARDS 14   ///< number of awards to display that will fit on screen
 
