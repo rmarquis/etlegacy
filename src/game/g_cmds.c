@@ -5053,17 +5053,17 @@ void G_CalcClientAccuracies(void)
 		{
 			for (j = 0; j < WS_MAX; j++)
 			{
-				// syringe hits are revives, no shots are recorded for it
-				if (j == WS_SYRINGE)
-				{
-					continue;
-				}
-
-				// weapons that can't do headshots count towards splash accuracy
-				if (!aWeaponInfo[j].fHasHeadShots)
+				// weapons dealing splash damage count towards splash accuracy
+				if (aWeaponInfo[j].fHasSplashDamage)
 				{
 					splashShots += level.clients[i].sess.aWeaponStats[j].atts;
 					splashHits  += level.clients[i].sess.aWeaponStats[j].hits;
+					continue;
+				}
+
+				// don't take into account weapons that can't do headshots
+				if (!aWeaponInfo[j].fHasHeadShots)
+				{
 					continue;
 				}
 

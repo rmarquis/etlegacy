@@ -2295,8 +2295,7 @@ void CG_parseWeaponStatsGS_cmd(void)
 					totHits  += nHits;
 					totShots += nShots;
 				}
-				// syringe hits are revives, no shots are recorded for it
-				else if (i != WS_SYRINGE)
+				else if (aWeaponInfo[i].fHasSplashDamage)
 				{
 					totSplashHits  += nHits;
 					totSplashShots += nShots;
@@ -2531,8 +2530,7 @@ void CG_parseWeaponStats_cmd(void(txt_dump) (const char *))
 					totHits  += hits;
 					totShots += atts;
 				}
-				// syringe hits are revives, no shots are recorded for it
-				else if (i != WS_SYRINGE)
+				else if (aWeaponInfo[i].fHasSplashDamage)
 				{
 					totSplashHits  += hits;
 					totSplashShots += atts;
