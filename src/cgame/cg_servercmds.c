@@ -2244,12 +2244,13 @@ void CG_parseWeaponStatsGS_cmd(void)
 	int          nRounds;
 	int          weaponMask;
 	int          skillMask, xp = 0;
-	int          totHits             = 0;
-	int          totShots            = 0;
-	int          totKills            = 0;
-	int          totDeaths           = 0;
-	int          totHeadshots        = 0;
-	int          totHeadshotableHits = 0;
+	int          totHits        = 0;
+	int          totShots       = 0;
+	int          totKills       = 0;
+	int          totDeaths      = 0;
+	int          totHeadshots   = 0;
+	int          totSplashHits  = 0;
+	int          totSplashShots = 0;
 
 	nClientID  = Q_atoi(CG_Argv(iArg++));
 	nRounds    = Q_atoi(CG_Argv(iArg++));
@@ -2291,9 +2292,14 @@ void CG_parseWeaponStatsGS_cmd(void)
 
 				if (aWeaponInfo[i].fHasHeadShots)
 				{
-					totHits             += nHits;
-					totShots            += nShots;
-					totHeadshotableHits += nHits;
+					totHits  += nHits;
+					totShots += nShots;
+				}
+				// syringe hits are revives, no shots are recorded for it
+				else if (i != WS_SYRINGE)
+				{
+					totSplashHits  += nHits;
+					totSplashShots += nShots;
 				}
 
 				Q_strncpyz(strName, va("%-12s  ", aWeaponInfo[i].pszName), sizeof(strName));
@@ -2352,7 +2358,7 @@ void CG_parseWeaponStatsGS_cmd(void)
 			ptRatio        = Q_atof(CG_Argv(iArg++));
 
 			htRatio = (totShots == 0) ? 0.0f : (float)(totHits * 100.0f / (float)totShots);
-			hsRatio = (totHits == 0) ? 0.0f : (float)(totHeadshots * 100.0f / (float)totHeadshotableHits);
+			hsRatio = (totHits == 0) ? 0.0f : (float)(totHeadshots * 100.0f / (float)totHits);
 
 			Q_strncpyz(gs->strExtra[0], va(CG_TranslateString("Damage Given: %6d      Team Damage Given: %6d"), dmg_given, team_dmg_given), sizeof(gs->strExtra[0]));
 			Q_strncpyz(gs->strExtra[1], va(CG_TranslateString("Damage Recvd: %6d      Team Damage Recvd: %6d"), dmg_rcvd, team_dmg_rcvd), sizeof(gs->strExtra[0]));
@@ -2445,13 +2451,14 @@ void CG_parseWeaponStats_cmd(void(txt_dump) (const char *))
 	unsigned int nRounds;
 	unsigned int dwWeaponMask;
 	unsigned int dwSkillPointMask;
-	int          xp                  = 0; // XP can be negative
-	int          totHits             = 0;
-	int          totShots            = 0;
-	int          totKills            = 0;
-	int          totDeaths           = 0;
-	int          totHeadshots        = 0;
-	int          totHeadshotableHits = 0;
+	int          xp             = 0; // XP can be negative
+	int          totHits        = 0;
+	int          totShots       = 0;
+	int          totKills       = 0;
+	int          totDeaths      = 0;
+	int          totHeadshots   = 0;
+	int          totSplashHits  = 0;
+	int          totSplashShots = 0;
 
 	fFull = (qboolean)(txt_dump != CG_printWindow);
 
@@ -2515,9 +2522,14 @@ void CG_parseWeaponStats_cmd(void(txt_dump) (const char *))
 
 				if (aWeaponInfo[i].fHasHeadShots)
 				{
-					totHits             += hits;
-					totShots            += atts;
-					totHeadshotableHits += hits;
+					totHits  += hits;
+					totShots += atts;
+				}
+				// syringe hits are revives, no shots are recorded for it
+				else if (i != WS_SYRINGE)
+				{
+					totSplashHits  += hits;
+					totSplashShots += atts;
 				}
 
 				Q_strncpyz(strName, va("^3%-10s: ", aWeaponInfo[i].pszName), sizeof(strName));
@@ -2567,7 +2579,7 @@ void CG_parseWeaponStats_cmd(void(txt_dump) (const char *))
 			ptRatio        = atof(CG_Argv(iArg++));
 
 			htRatio = (totShots == 0) ? 0.0 : (float)(totHits * 100.0 / (float)totShots);
-			hsRatio = (totHits == 0) ? 0.0 : (float)(totHeadshots * 100.0 / (float)totHeadshotableHits);
+			hsRatio = (totHits == 0) ? 0.0 : (float)(totHeadshots * 100.0 / (float)totHits);
 
 			if (!fFull)
 			{
