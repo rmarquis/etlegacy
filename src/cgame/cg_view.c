@@ -2324,7 +2324,8 @@ static ID_INLINE void CG_PlayAnnouncementTickTock()
 		qboolean playTock;
 		qboolean playLoud;
 
-		// CG_CalculateReinfTime() returns 1 for the final full second before wave.
+		// ownReinfTime is the whole-second reinforcement countdown, evaluated 100ms ahead of cg.time.
+		// 1 means we are in the final full second before the next wave.
 		// The last two seconds use the louder tick/tock variants.
 		if (cg.ownWaveTicktockLastReinfTime != ownReinfTime
 		    && ownReinfTime >= 1
