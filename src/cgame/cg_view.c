@@ -2319,7 +2319,7 @@ static ID_INLINE void CG_PlayAnnouncementTickTock()
 		int dwDeployTime          = (ownTeam == TEAM_AXIS) ? cg_redlimbotime.integer : cg_bluelimbotime.integer;
 		int adjustedElapsed       = cgs.aReinfOffset[ownTeam] + (cg.time + warningLeadMsec) - cgs.levelStartTime;
 		int ownReinfTime          = (int)(1 + (dwDeployTime - (adjustedElapsed % dwDeployTime)) * 0.001f);
-		int triggerStartReinfTime = cg_reinforceTickTock.integer;
+		int triggerStartReinfTime = dwDeployTime / 1000;
 		int sequenceIndex;
 		qboolean playTock;
 		qboolean playLoud;
