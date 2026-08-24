@@ -2325,6 +2325,7 @@ static ID_INLINE void CG_PlayAnnouncementTickTock()
 		qboolean playLoud;
 
 		// CG_CalculateReinfTime() returns 1 for the final full second before wave.
+		// The last two seconds use the louder tick/tock variants.
 		if (cg.ownWaveTicktockLastReinfTime != ownReinfTime
 		    && ownReinfTime >= 1
 		    && ownReinfTime <= triggerStartReinfTime)
@@ -2332,7 +2333,7 @@ static ID_INLINE void CG_PlayAnnouncementTickTock()
 			// Build an index from the first warning second to the final warning second.
 			sequenceIndex = triggerStartReinfTime - ownReinfTime;
 			playTock      = (sequenceIndex & 1) ? qtrue : qfalse;
-			playLoud      = (ownReinfTime == 1) ? qtrue : qfalse;
+			playLoud      = (ownReinfTime <= 2) ? qtrue : qfalse;
 
 			if (playTock)
 			{
